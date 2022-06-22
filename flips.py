@@ -5,26 +5,20 @@ from djitellopy import Tello
 
 tello = Tello()
 
-
-
 tello.connect()
 
 tello.enable_mission_pads()
 tello.takeoff()
 
-
-
 while 1:
-	tello.get_mission_pad_id()
+	id = tello.get_mission_pad_id()
 	print(tello.get_mission_pad_id())
-
 
 	tello.go_xyz_speed_mid(40, 0, 80, 20, 1)
 
-	if tello.get_mission_pad_id() == 6:
-		print(tello.get_mission_pad_id())
+	if id == 6:
+		print(id)
 		break
-
 
 # tello.go_xyz_speed_mid(130, 0, 20, 40, 1)
 

@@ -6,7 +6,7 @@ tello = Tello()
 tello.connect()
 tello.takeoff()
 
-for i in range(2):
+for i in range(1):
 	tello.move_forward(50)
 	tello.rotate_counter_clockwise(90)
 	tello.move_forward(50)
@@ -16,4 +16,3 @@ for i in range(2):
 	tello.move_forward(50)
 
 tello.land()
-
