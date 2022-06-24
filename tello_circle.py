@@ -12,12 +12,12 @@ class Point:
 tello = Tello()
 
 tello.connect()
-tello.enable_mission_pads()
+tello.disable_mission_pads()
 tello.takeoff()
 
 ## Define points
 #  Points of Trajectory 1
-A1 = Point(0, 0, 30)
+A1 = Point(0, 0, 20)
 B1 = Point(50, 50, 0)
 C1 = Point(100, 0, 0)
 

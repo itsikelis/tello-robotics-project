@@ -21,7 +21,7 @@ tello.enable_mission_pads()
 # Takeoff.
 tello.takeoff()
 
-A = Point(40, 40, 100)
+A = Point(40, 40, 30)
 
 while True:
 	# If mission pad 1 is recognized, fly to A and back.
