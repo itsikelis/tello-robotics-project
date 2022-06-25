@@ -4,7 +4,6 @@ from djitellopy import Tello
 
 tello = Tello()
 tello.connect()
-print(tello.get_battery())
 
 tello.streamon()
 tello.takeoff()
@@ -65,15 +64,15 @@ def faceTracking(tello, info, w, PID, prevError):
     return error
 
 while True:
-    img = tello.get_frame_read().frame
+    img = tello.get_frame_read()
+    img = img.frame
     img = cv2.resize(img, (w, h))
     img, info = faceRecognition(img)
 
     # PID Control
     prevError = faceTracking(tello, info, w, PID, prevError)
-    #qqprint("Center:", "x=", info[0][0], "y=", info[0][1]," Area:", info[1])   # Print observed area and center coordinates
-    faceRecognition(img)
-    cv2.imshow("Laptop Camera", img)
+    #print("Center:", "x=", info[0][0], "y=", info[0][1]," Area:", info[1])   # Print observed area and center coordinates
+    cv2.imshow("Camera feed", img)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):   # land when press Q
         tello.land()
