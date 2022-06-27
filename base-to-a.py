@@ -23,13 +23,18 @@ tello.takeoff()
 
 A = Point(40, 40, 30)
 
-while True:
-	# If mission pad 1 is recognized, fly to A and back.
-	if(tello.get_mission_pad_id() == 1):
-		tello.go_xyz_speed_mid(A.x, A.y, A.z, 30, 1)
-		tello.go_xyz_speed(-A.x, -A.y, 0, 30)
-		tello.go_xyz_speed_mid(0, 0 , 100, 30, 1)
-		tello.land()
+# Move to A.
+tello.go_xyz_speed_mid(A.x, A.y, A.z, 50, 1)
 
+# Go back using no reference.
+tello.go_xyz_speed(-A.x, -A.y, 0, 30)
+
+# If mission pad 1 is recognized, fly to A and back.
+if(tello.get_mission_pad_id() == 1):
+	i = 0
+	while i < 20:
+		tello.go_xyz_speed_mid(0, 0 , 30, 30, 1)
+		tello.land()
+		i += 1
 	
 
