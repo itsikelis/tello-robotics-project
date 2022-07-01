@@ -4,7 +4,7 @@ import time
 
 def Search(i, tello, boom):
     while boom[i]:
-        tello.send_rc_control(0, 5, 0, 0)
+        tello.send_rc_control(0, 10, 0, 0)
         print(i, tello.get_mission_pad_id())
         if tello.get_mission_pad_id() != -1:
             tello.send_rc_control(0, 0, 0, 0)
@@ -34,7 +34,7 @@ while True:
     swarm.parallel(lambda i, tello: tello.move_forward(35))
     swarm.parallel(lambda i, tello: tello.send_rc_control(0, 10, 0, 0))
     swarm.parallel(lambda i, tello: tello.send_rc_control(0, 0, 0, 0))
-    swarm.parallel(lambda i, tello: tello.move_up(30))
+    swarm.parallel(lambda i, tello: tello.move_up(60))
     tim = time.perf_counter()
     while time.perf_counter() - tim < 5:
         swarm.parallel(lambda i, tello: tello.send_rc_control(0, 0, 0, 0))
@@ -54,7 +54,7 @@ while True:
         swarm.sequential(lambda i, tello: print(tello.get_mission_pad_id()))
 
     tim = time.perf_counter()
-    while time.perf_counter() - tim < 5:
+    while time.perf_counter() - tim < 0.5:
         swarm.parallel(lambda i, tello: tello.send_rc_control(0, 0, -5, 0))
 
     break
