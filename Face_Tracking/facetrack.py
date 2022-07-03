@@ -30,6 +30,6 @@ while True:     # Control Loop
     #pErrorFB = pError#[1]
 
     cv2.imshow('Image', img)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    if cv2.waitKey(1) & 0xFF == ord('q'):   # End loop when 'q' key is pressed
         tello.land()
         break

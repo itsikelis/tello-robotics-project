@@ -2,7 +2,6 @@ from djitellopy import Tello
 import cv2
 import numpy as np
  
- 
 def initializeTello():
     tello = Tello()
     tello.connect()
@@ -11,14 +10,13 @@ def initializeTello():
     tello.up_down_velocity = 0
     tello.yaw_velocity = 0
     tello.speedYaw = 0
-    print(tello.get_battery())
-    tello.streamon()
+    tello.streamon()    # Begin front camera streaming
     return tello
  
 def telloGetFrame(tello, w, h):
-    myFrame = tello.get_frame_read()
-    myFrame = myFrame.frame
-    img = cv2.resize(myFrame, (w, h))
+    telloFrame = tello.get_frame_read()
+    telloFrame = telloFrame.frame
+    img = cv2.resize(telloFrame, (w, h))
     return img
  
 def findFace(img):
@@ -28,8 +26,8 @@ def findFace(img):
     minNeighbors = 8
     faces = faceCascade.detectMultiScale(imgGray, scaleFactor, minNeighbors)
  
-    myFaceListC = []        # Initialize face center coordinate list
-    myFaceListArea = []     # Initialize face rectangle area list
+    faceListCenter = []        # Initialize face center coordinate list
+    faceListArea = []          # Initialize face rectangle area list
  
     for (x, y, w, h) in faces:
         cv2.rectangle(img, (x, y), (x+w, y+h), (0,0,255), 2)    # Rectangle around face
@@ -37,12 +35,12 @@ def findFace(img):
         cy = y + h // 2
         area = w * h            # Frame area
         cv2.circle(img, (cx, cy), 5, (0,255,0), cv2.FILLED)     # Circle at center of rectangle
-        myFaceListArea.append(area)
-        myFaceListC.append([cx, cy])
+        faceListArea.append(area)
+        faceListCenter.append([cx, cy])
  
-    if len(myFaceListArea) != 0:
-        i = myFaceListArea.index(max(myFaceListArea))
-        return img, [myFaceListC[i], myFaceListArea[i]]
+    if len(faceListArea) != 0:
+        i = faceListArea.index(max(faceListArea))       # Pick characteristics of rectangle with max area
+        return img, [faceListCenter[i], faceListArea[i]]
     else:
         return img, [[0, 0], 0]
  
